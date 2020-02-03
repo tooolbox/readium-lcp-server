@@ -16,16 +16,15 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/abbot/go-http-auth"
-	_ "github.com/go-sql-driver/mysql"
+	auth "github.com/abbot/go-http-auth"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/readium/readium-lcp-server/config"
-	"github.com/readium/readium-lcp-server/license_statuses"
+	licensestatuses "github.com/readium/readium-lcp-server/license_statuses"
 	"github.com/readium/readium-lcp-server/localization"
 	"github.com/readium/readium-lcp-server/logging"
-	"github.com/readium/readium-lcp-server/lsdserver/server"
+	lsdserver "github.com/readium/readium-lcp-server/lsdserver/server"
 	"github.com/readium/readium-lcp-server/transactions"
 )
 

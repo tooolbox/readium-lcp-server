@@ -37,12 +37,11 @@ import (
 	"strings"
 	"syscall"
 
-	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/readium/readium-lcp-server/config"
-	"github.com/readium/readium-lcp-server/frontend/server"
+	frontend "github.com/readium/readium-lcp-server/frontend/server"
 	"github.com/readium/readium-lcp-server/frontend/webdashboard"
 	"github.com/readium/readium-lcp-server/frontend/weblicense"
 	"github.com/readium/readium-lcp-server/frontend/webpublication"
