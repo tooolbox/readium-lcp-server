@@ -20,9 +20,16 @@ Prerequisites
 No binaries are currently pre-built, so you need to get a working Golang installation. 
 Please refer to the official documentation for installation procedures at https://golang.org/.
 
-The servers require the setup of an SQL Database. A SQLite db is used by default (it works fine on existing installations; its limitation is being part of a distributed platform), and if the "database" property of each server defines a sqlite3 driver, the db setup is dynamically achieved when the server runs for the first time. 
+Install go 1.13 or higher; go 1.9 is not supported anymore by some modules. 
 
-A MySQL db creation script is provided as well, in the "dbmodel" folder, but there is still some work to do to adapt the internal requests to MySQL (help welcome). Such script should be run before launching the servers for the first time. We expect other drivers (PostgresQL ...) to be provided by the community. A major revision of the software features an ORM, but it is still unsufficiently tested to be moved to the master branch. 
+The servers require the setup of an SQL Database. 
+
+- SQLite is sufficient for most needs. If the "database" property of each server defines a sqlite3 driver, the db setup is dynamically achieved when the server runs for the first time. SQLite database creation scripts are provided in the "dbmodel" folder in case they are useful. 
+-  MySQL database creation scripts are provided as well in the "dbmodel" folder. These scripts should be run before launching the servers for the first time. 
+
+We expect other drivers (PostgresQL ...) to be provided by the community. Some developers have deployed MS SQL Server, but the corresponding scripts were not provided so far. 
+
+A major revision of the software will feature an ORM (Object Realtional Mapper), but it is still unsufficiently tested to be moved to the master branch. 
 
 Your platform must be able to handle:
 
@@ -146,9 +153,9 @@ The server is controlled by a yaml configuration file (e.g. "config.yaml").
 
 The License Server, License Status Server and Frontend test server will search their configuration file in the bin directory by default; but the path to this file can be changed using the environment variable:
 
-* `READIUM_LCPSERVER_CONFIG` for the LCP server
-* `READIUM_LSDSERVER_CONFIG` for the LSD server
-* `READIUM_FRONTEND_CONFIG` for the frontend test server
+* `READIUM_LCPSERVER_CONFIG` for the License server
+* `READIUM_LSDSERVER_CONFIG` for the License Status server
+* `READIUM_FRONTEND_CONFIG` for the Frontend test server
 
 The value of the three global variables must be of the form /path/to/lcpconfig.yaml.
 

@@ -44,7 +44,7 @@ func GetPublications(w http.ResponseWriter, r *http.Request, s IServer) {
 			return
 		}
 	} else {
-		perPage = 30
+		perPage = 100
 	}
 
 	if page > 0 {
@@ -57,7 +57,6 @@ func GetPublications(w http.ResponseWriter, r *http.Request, s IServer) {
 	}
 
 	pubs := make([]webpublication.Publication, 0)
-	//log.Println("ListAll(" + strconv.Itoa(int(per_page)) + "," + strconv.Itoa(int(page)) + ")")
 	fn := s.PublicationAPI().List(int(perPage), int(page))
 	for it, err := fn(); err == nil; it, err = fn() {
 		pubs = append(pubs, it)
@@ -94,9 +93,8 @@ func GetPublication(w http.ResponseWriter, r *http.Request, s IServer) {
 	if pub, err := s.PublicationAPI().Get(int64(id)); err == nil {
 		enc := json.NewEncoder(w)
 		if err = enc.Encode(pub); err == nil {
-			// send json of correctly encoded user info
+			// send a json serialization of the publication
 			w.Header().Set("Content-Type", api.ContentType_JSON)
-			w.WriteHeader(http.StatusOK)
 			return
 		}
 		problem.Error(w, r, problem.Problem{Detail: err.Error()}, http.StatusInternalServerError)
@@ -124,9 +122,8 @@ func CheckPublicationByTitle(w http.ResponseWriter, r *http.Request, s IServer) 
 	if pub, err := s.PublicationAPI().CheckByTitle(string(title)); err == nil {
 		enc := json.NewEncoder(w)
 		if err = enc.Encode(pub); err == nil {
-			// send json of correctly encoded user info
+			// send a json serialization of the boolean response
 			w.Header().Set("Content-Type", api.ContentType_JSON)
-			w.WriteHeader(http.StatusOK)
 			return
 		}
 		problem.Error(w, r, problem.Problem{Detail: err.Error()}, http.StatusInternalServerError)

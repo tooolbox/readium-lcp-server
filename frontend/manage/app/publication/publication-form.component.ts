@@ -63,7 +63,7 @@ export class PublicationFormComponent implements OnInit {
     {
         this.split = fileItem.file.name.split('.');
         let extension = this.split[this.split.length-1];
-        if (extension === "epub" || extension === "pdf")
+        if (extension === "epub" || extension === "pdf" || extension === "lpf")
         {
             this.notAPublication = false;
         }
@@ -76,7 +76,7 @@ export class PublicationFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.uploader = new FileUploader({url: this.baseUrl + "/PublicationUpload"});        
+        this.uploader = new FileUploader({url: this.baseUrl + "/publicationUpload"});        
         this.refreshMasterFiles();
 
         // Events declarations
@@ -135,7 +135,7 @@ export class PublicationFormComponent implements OnInit {
                         if (result === 0) {
                             // upload the publication
                             if (this.form.value["type"] === "UPLOAD") {
-                                let options = {url: this.baseUrl + "/PublicationUpload?title=" + this.form.value['title']};
+                                let options = {url: this.baseUrl + "/publicationUpload?title=" + this.form.value['title']};
                                 this.uploader.setOptions(options);
                                 this.uploader.uploadItem(this.droppedItem);
                             // or request the import of a publication into the frontend server
@@ -150,7 +150,7 @@ export class PublicationFormComponent implements OnInit {
                                         if (error === 200) {
                                             this.gotoList();
                                         } else if (error === 400) {
-                                            this.errorMessage = "The file must be a proper EPUB or PDF file."
+                                            this.errorMessage = "The file must be a proper EPUB, PDF or LPF file."
                                             this.showSnackBar(false);
                                         }
                                     }
@@ -166,7 +166,7 @@ export class PublicationFormComponent implements OnInit {
             } else {
                 // just treat the case of an update of the file via upload
                 if (this.form.value["type"] === "UPLOAD") {
-                    let options = {url: this.baseUrl + "/PublicationUpload?title=" + this.form.value['title']};
+                    let options = {url: this.baseUrl + "/publicationUpload?title=" + this.form.value['title']};
                     this.uploader.setOptions(options);
                     this.uploader.uploadItem(this.droppedItem);
                 }
